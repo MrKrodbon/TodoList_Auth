@@ -29,7 +29,7 @@ const RegistrationForm = () => {
   return (
     <Formik initialValues={initialValues} onSubmit={onSubmitHandle}>
       {(props) => (
-        <form className="flex flex-col gap-2.5 w-full h-full items-center">
+        <form className="flex flex-col gap-4 w-full h-full items-center">
           <Label value="Name" htmlFor="name">
             <Input
               id="name"
@@ -63,7 +63,17 @@ const RegistrationForm = () => {
               placeholder="Enter your password"
             />
           </Label>
+
           <Button type="submit" value="Register" />
+          <p>
+            If you have account,{" "}
+            <span
+              onClick={() => navigation("/login")}
+              className="text-blue-600"
+            >
+              sign in
+            </span>
+          </p>
         </form>
       )}
     </Formik>

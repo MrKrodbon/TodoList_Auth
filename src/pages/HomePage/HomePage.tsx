@@ -7,6 +7,7 @@ import Button from "../../components/Button/Button";
 import { useDispatch, useSelector } from "react-redux";
 import { addGroup, deleteGroup } from "../../redux/todoGroup/slices";
 import { selectTodoGroupList } from "../../redux/todoGroup/selectors";
+import { nanoid } from "@reduxjs/toolkit";
 
 const initialValues = {
   title: "",
@@ -23,7 +24,13 @@ const HomePage = () => {
     actions: FormikHelpers<typeof initialValues>
   ) => {
     if (values.taskGroupTitle.length && values.title.length) {
-      dispatch(addGroup(values.taskGroupTitle.trim()));
+      dispatch(
+        addGroup(values.taskGroupTitle.trim(), {
+          id: nanoid(),
+          title: values.title.trim(),
+          description: values.description.trim(),
+        })
+      );
       actions.resetForm();
     }
     actions.resetForm();

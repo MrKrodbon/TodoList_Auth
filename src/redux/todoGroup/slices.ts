@@ -21,7 +21,7 @@ const todoGroupSlice = createSlice({
           });
         }
       },
-      prepare(title: string, todo: Todo[]) {
+      prepare(title: string, todo: Todo) {
         return {
           payload: { title, todo },
         };

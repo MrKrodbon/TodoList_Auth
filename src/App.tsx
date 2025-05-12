@@ -19,7 +19,10 @@ function App() {
         path="/login"
         element={<RestrictedRoute component={<LoginPage />} />}
       />
-      <Route path="/" element={isUserLoggedIn ? <HomePage /> : <LoginPage />} />
+      <Route
+        path="/"
+        element={isUserLoggedIn ? <HomePage /> : <RegisterPage />}
+      />
     </Routes>
   );
 }

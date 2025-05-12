@@ -1,9 +1,6 @@
-import { useDispatch, useSelector } from "react-redux";
+import { useSelector } from "react-redux";
 import { selectTodoList } from "../../redux/todoList/selectors";
 import TodoListItem from "../TodoListItem/TodoListItem";
-import { Formik, type FormikHelpers } from "formik";
-import type { Todo } from "../../types";
-import { addTodo } from "../../redux/todoList/slices"; // якщо такого немає — створи компонент або заміни на <button>
 
 const TodoList = () => {
   const todoList = useSelector(selectTodoList);
