@@ -14,7 +14,7 @@ const initialValues = {
   password: "",
 };
 
-const AuthorizationForm = () => {
+const LoginForm = () => {
   const dispatch = useDispatch<AppDispatch>();
   const navigation = useNavigate();
   const onSubmitHandle = (values: userSignInProps) => {
@@ -23,14 +23,14 @@ const AuthorizationForm = () => {
       password: values.password.trim(),
     };
     dispatch(userSignIn(trimmedValues));
-    navigation("/");
+    navigation("/todos");
   };
   return (
     <Formik initialValues={initialValues} onSubmit={onSubmitHandle}>
       {(props) => (
         <form
           onSubmit={props.handleSubmit}
-          className="flex flex-col gap-2.5 w-full h-full items-center"
+          className="flex flex-col gap-2.5 w-full items-center"
         >
           <Label value="Email" htmlFor="email">
             <Input
@@ -61,4 +61,4 @@ const AuthorizationForm = () => {
   );
 };
 
-export default AuthorizationForm;
+export default LoginForm;

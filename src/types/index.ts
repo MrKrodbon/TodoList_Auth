@@ -49,6 +49,12 @@ export interface AuthState {
   error: string | null;
 }
 
+export interface TodoState {
+  todos: TodoGroup[];
+  error: string | null;
+  loading: boolean;
+}
+
 export interface Todo {
   id?: string;
   title: string;
@@ -59,9 +65,14 @@ export interface Todo {
 export interface TodoGroup {
   id?: string;
   title: string;
-  todo: Todo[];
+  todos: Todo[];
 }
 
+export type ToDoListProps = Omit<TodoGroup, "title">;
+
 export interface TodoProps {
-  todo: Todo;
+  id?: string;
+  title: string;
+  description: string;
+  isCompleted?: boolean;
 }

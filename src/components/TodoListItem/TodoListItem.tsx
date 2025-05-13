@@ -2,24 +2,29 @@ import React, { useState } from "react";
 import type { TodoProps } from "../../types";
 import Input from "../Input/Input";
 import Button from "../Button/Button";
-import { useDispatch } from "react-redux";
-import { deleteTodo, editTodo, toggleTodo } from "../../redux/todoList/slices";
+import { useDispatch, useSelector } from "react-redux";
+import { toggleTodo } from "../../redux/todoGroup/slices";
+import { deleteTodo, updateTodo } from "../../redux/todoGroup/operations";
+import { AppDispatch, type StoreType } from "../../redux/store";
+import { selectToDoGroupId } from "../../redux/todoGroup/selectors";
 
-const TodoListItem = ({ todo }: TodoProps) => {
-  const dispatch = useDispatch();
+const ToDoListItem = ({ id, title, description, isCompleted }: TodoProps) => {
+  const dispatch = useDispatch<AppDispatch>();
   const [isEditing, setIsEditing] = useState(false);
-  const [editedTitle, setEditedTitle] = useState(todo.title);
-  const [editedDescription, setEditedDescription] = useState(todo.description);
+  const [editedTitle, setEditedTitle] = useState(title);
+  const [editedDescription, setEditedDescription] = useState(description);
+
+  const groupId = useSelector(selectToDoGroupId);
 
   const onDeleteHandle = () => {
-    dispatch(deleteTodo(todo));
+    dispatch(deleteTodo({ groupId: groupId?.id, todoId: id }));
     setIsEditing(false);
   };
 
   const onSaveHandle = () => {
     dispatch(
-      editTodo({
-        ...todo,
+      updateTodo({
+        id,
         title: editedTitle,
         description: editedDescription,
       })
@@ -46,14 +51,14 @@ const TodoListItem = ({ todo }: TodoProps) => {
         </div>
       ) : (
         <div className="flex flex-col sm:flex-row gap-2 flex-grow">
-          <p className="text-gray-800 font-medium">{todo.title}</p>
-          <p className="text-gray-600">{todo.description}</p>
+          <p className="text-gray-800 font-medium">{title}</p>
+          <p className="text-gray-600">{description}</p>
           <input
             id="isCompleted"
             type="checkbox"
-            checked={todo.isCompleted}
-            onClick={() => {
-              dispatch(toggleTodo(todo));
+            checked={isCompleted}
+            onChange={() => {
+              dispatch(toggleTodo(id));
             }}
           />
           <Button
@@ -71,9 +76,9 @@ const TodoListItem = ({ todo }: TodoProps) => {
             <input
               id="isCompleted"
               type="checkbox"
-              checked={todo.isCompleted}
-              onClick={() => {
-                dispatch(toggleTodo(todo));
+              checked={isCompleted}
+              onChange={() => {
+                dispatch(toggleTodo(id));
               }}
             />
             <Button type="button" onClick={onSaveHandle} value="Save" />
@@ -84,4 +89,4 @@ const TodoListItem = ({ todo }: TodoProps) => {
   );
 };
 
-export default TodoListItem;
+export default ToDoListItem;

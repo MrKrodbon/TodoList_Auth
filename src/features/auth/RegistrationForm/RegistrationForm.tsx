@@ -24,12 +24,12 @@ const RegistrationForm = () => {
       password: values.password.trim(),
     };
     dispatch(userSignUp(trimmedValues));
-    navigation("/");
+    navigation("/todos");
   };
   return (
     <Formik initialValues={initialValues} onSubmit={onSubmitHandle}>
       {(props) => (
-        <form className="flex flex-col gap-4 w-full h-full items-center">
+        <form className="flex flex-col gap-4 w-full  items-center">
           <Label value="Name" htmlFor="name">
             <Input
               id="name"
